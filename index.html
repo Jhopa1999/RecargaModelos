@@ -1,11 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ejecutar API</title>
+    <script>
+        function ejecutarAPI() {
+            const API_URL = "https://bivigia.us.qlikcloud.com/api/v1/automations/33db9a93-7ff9-4a54-a914-30062f531ad6/actions/execute";
+            const HEADERS = {
+                "X-Execution-Token": "iiRmPCwptYcx6mcMxbt7LOxY5ECEFjpfCa8ZbJcDTjxxp0WweQzPJEqsk4irlu61"
+            };
+
+            const resultado = document.getElementById("resultado");
+            resultado.innerText = "Ejecutando...";
+
+            fetch(API_URL, {
+                method: "POST",
+                headers: HEADERS
+            })
+            .then(response => response.text())
+            .then(data => {
+                resultado.style.color = "green";
+                resultado.innerText = "✅ Éxito: " + data;
+            })
+            .catch(error => {
+                resultado.style.color = "red";
+                resultado.innerText = "❌ Error: " + error.message;
+            });
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <button>aljsdhkjasd</button>
+    <h2>Ejecutar API</h2>
+    <button onclick="ejecutarAPI()">Ejecutar API</button>
+    <p id="resultado"></p>
 </body>
 </html>
